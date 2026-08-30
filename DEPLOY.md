@@ -32,16 +32,31 @@ two records rather than one.
 
 In Porkbun: **Account → Domain Management → lucyschodell.com → DNS**.
 
-**Delete the default parking records first.** Porkbun pre-fills an ALIAS on the
-root and a CNAME on `www`, both aimed at its own parking page. If you leave them
-in place they win and the site never appears.
+Porkbun ships a domain with parking records pointing at `uixie.porkbun.com`.
+Deal with those first, or the site never appears.
 
-Then add:
+**Edit** the existing ALIAS on the root, changing its answer:
 
 | Type  | Host    | Answer                          |
 | ----- | ------- | ------------------------------- |
 | ALIAS | *empty* | `apex-loadbalancer.netlify.com` |
-| CNAME | `www`   | `your-site.netlify.app`         |
+
+**Delete** the wildcard `*.lucyschodell.com` CNAME. It aims every subdomain at
+the parking page.
+
+**Add** an explicit record for `www`:
+
+| Type  | Host  | Answer                  |
+| ----- | ----- | ----------------------- |
+| CNAME | `www` | `your-site.netlify.app` |
+
+A specific record always beats a wildcard, so the `www` CNAME is what fixes
+`www`. Removing the wildcard is about every other subdomain.
+
+**Leave alone:** the two `MX` records and the `v=spf1` TXT record. That's
+Porkbun email forwarding, and deleting it breaks mail on the domain. Any
+`_acme-challenge` TXT records are leftovers from Porkbun's SSL and are harmless;
+Netlify issues its own certificate.
 
 ALIAS is the right record for the apex. A plain CNAME is not legal there, and
 Porkbun's ALIAS resolves to whatever IPs Netlify is using at the time, so it
