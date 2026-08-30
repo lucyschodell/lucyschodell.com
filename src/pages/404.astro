@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="That page doesn't exist. Try the running, writing or projects sections instead."
+>
+  <section class="wrap missing">
+    <p class="label">404</p>
+    <h1>That page isn't here.</h1>
+    <p class="body">
+      It may have moved, or the link might be wrong. Everything on the site is one of
+      these:
+    </p>
+    <ul class="options">
+      <li><a href="/running/">Running<Icon name="arrow" size={15} /></a></li>
+      <li><a href="/writing/">Writing<Icon name="arrow" size={15} /></a></li>
+      <li><a href="/projects/">Projects<Icon name="arrow" size={15} /></a></li>
+      <li><a href="/about/">About<Icon name="arrow" size={15} /></a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .missing {
+    padding-block: clamp(3rem, 10vw, 7rem) var(--space-3xl);
+    max-width: 44rem;
+  }
+
+  h1 {
+    margin-top: var(--space-s);
+  }
+
+  .body {
+    margin-top: var(--space-m);
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+
+  .options {
+    list-style: none;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .options a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    transition: color var(--transition), padding-inline-start var(--transition);
+  }
+
+  .options a:hover {
+    color: var(--clay);
+    padding-inline-start: var(--space-2xs);
+  }
+</style>

@@ -1,0 +1,115 @@
+[
+  {
+    "id": "watch-womens-sports",
+    "name": "Watch Women's Sports (IRL)",
+    "tagline": "Find a game. Put it on your calendar. Bring a friend. Bring a kid.",
+    "year": "Since 2025",
+    "status": "Active",
+    "role": "Founder",
+    "body": [
+      "Supporting women's sports in real life shouldn't be hard, but it often is. Schedules live on dozens of different websites, and a lot of them are incomplete or out of date. Watch Women's Sports (IRL) puts it in one place, across every league and every level, filtered by where you are and what's actually on.",
+      "It covers games you can go to in person and games you can find on TV or streaming, plus watch parties and the bars that host them. There's also a scheduling tool for venues, which I built with input from Babe's, a women's sports bar in Chicago. My friend who runs it was spending hours every week trying to find where games were airing, and that's what started all of this.",
+      "In June 2026 it won the $1,500 grand prize at Idea Village's Pitch Night at the House of Blues in New Orleans, along with a spot in IDEAfuel and the Big Idea Showcase."
+    ],
+    "why": "I remember asking my mom why 'women couldn't be professional athletes' when I was young, which was an assumption I made because I only saw men playing sports professionally. Every little girl who plays sports deserves to dream.",
+    "url": "https://www.watchwomenssportsirl.com/",
+    "links": [
+      {
+        "label": "watchwomenssportsirl.com",
+        "url": "https://www.watchwomenssportsirl.com/"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/watchwomenssports_irl/"
+      },
+      {
+        "label": "Read: why I built it",
+        "url": "https://lucyschodell.substack.com/p/making-it-easier-to-show-up-for-womens"
+      },
+      {
+        "label": "Technical.ly: Idea Village pitch night",
+        "url": "https://technical.ly/entrepreneurship/watch-womens-sports-irl-wins-idea-village-pitch-night/"
+      }
+    ],
+    "photo": "young-athlete-team",
+    "gallery": [
+      "young-athlete-clinic"
+    ],
+    "relatedWriting": [
+      "making-it-easier-to-show-up-for-womens"
+    ],
+    "featured": true,
+    "order": 1
+  },
+  {
+    "id": "virtual-sparkles",
+    "name": "Virtual Sparkles",
+    "tagline": "A dose of ✨ virtual sparkles ✨ in tough moments.",
+    "status": "Active",
+    "role": "Made it",
+    "body": [
+      "A small site that gives you a mantra when you need one. It's built around the line I keep coming back to, in races and everywhere else: go outside, have adventures, do hard things.",
+      "It's one page and one idea, and there's nothing to sign up for."
+    ],
+    "url": "https://virtual-sparkles.onrender.com",
+    "links": [
+      {
+        "label": "virtual-sparkles.onrender.com",
+        "url": "https://virtual-sparkles.onrender.com"
+      }
+    ],
+    "photo": "gobi-sunrise",
+    "gallery": [],
+    "relatedWriting": [],
+    "featured": false,
+    "order": 3
+  },
+  {
+    "id": "live-oak-camp",
+    "name": "Live Oak Camp",
+    "tagline": "A sleep-away camp for New Orleans future leaders.",
+    "year": "Since 2015",
+    "status": "Active",
+    "role": "Chief Operating Officer, founding teammate",
+    "body": [
+      "A sleep-away camp that connects New Orleans future leaders through time at camp, on back-packing trips, and in leadership development programs throughout the year. I've been part of Live Oak since it started in 2015, and these days I run it day to day.",
+      "A lot of my races have also been fundraisers for camp. Ultra Gobi raised more than $10,000 for scholarships."
+    ],
+    "why": "It gives young people the opportunity to connect with one another outside and away from technology.",
+    "url": "https://www.liveoakcamp.com/",
+    "links": [
+      {
+        "label": "liveoakcamp.com",
+        "url": "https://www.liveoakcamp.com/"
+      }
+    ],
+    "photo": "moab-crew",
+    "gallery": [],
+    "relatedWriting": [],
+    "featured": false,
+    "order": 4
+  },
+  {
+    "id": "women-are-elite",
+    "name": "Women Are Elite",
+    "tagline": "Shirts, hats, and a phrase I wanted to see more of.",
+    "status": "Active",
+    "role": "Founder",
+    "body": [
+      "Women Are Elite started as something to wear at races, and it turned into its own small shop: tees, hoodies, caps, mugs, totes, and flags.",
+      "It goes alongside Watch Women's Sports (IRL), and it's usually what I'm wearing when I show up to a game."
+    ],
+    "url": "https://www.womenareelite.com",
+    "links": [
+      {
+        "label": "womenareelite.com",
+        "url": "https://www.womenareelite.com"
+      }
+    ],
+    "photo": "women-are-elite",
+    "gallery": [],
+    "relatedWriting": [],
+    "featured": false,
+    "order": 2
+  }
+]

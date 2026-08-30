@@ -1,0 +1,131 @@
+---
+import { getLinks } from "../lib/content";
+import { site } from "../lib/site";
+import Icon from "./Icon.astro";
+
+const links = await getLinks();
+const year = 2026;
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="say-hello">
+        <h2 class="label">Elsewhere</h2>
+        <p class="line">
+          Most of my writing is on Substack, and most of the running ends up on Instagram.
+        </p>
+      </div>
+
+      <ul class="links">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.data.url} rel="me noopener">
+                <Icon name={l.data.icon} size={17} />
+                <span class="link-label">
+                  {l.data.label}
+                  {l.data.handle && <span class="handle">{l.data.handle}</span>}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="colophon">
+      <p>© {year} {site.name} · {site.location}</p>
+      <p class="credit">
+        Photography from my own race reports. Ultra Gobi images by the race's official
+        photographers.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+    border-top: 1px solid var(--rule);
+    background: var(--paper-sunk);
+    padding-block: var(--space-xl) var(--space-l);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: var(--space-l);
+    align-items: start;
+  }
+
+  .line {
+    margin-top: var(--space-2xs);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.25;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--space-2xs) var(--space-m);
+  }
+
+  .links a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding-block: var(--space-3xs);
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: color var(--transition);
+  }
+
+  .links a:hover {
+    color: var(--clay);
+  }
+
+  .link-label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .link-label > :global(*) {
+    display: block;
+  }
+
+  .handle {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .colophon {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .credit {
+    max-width: 46ch;
+  }
+
+  @media (max-width: 46rem) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-m);
+    }
+  }
+</style>

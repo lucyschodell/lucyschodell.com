@@ -1,0 +1,275 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Figure from "../components/Figure.astro";
+import Icon from "../components/Icon.astro";
+import { getProjects } from "../lib/content";
+import { site } from "../lib/site";
+import { collectionPageSchema } from "../lib/schema";
+
+const projects = await getProjects();
+
+const schema = [
+  collectionPageSchema(
+    "/projects/",
+    "Projects by Lucy Schodell",
+    "Watch Women's Sports (IRL), Women Are Elite, Virtual Sparkles and Live Oak Camp.",
+    projects.map((p) => ({ name: p.data.name, url: p.data.url ?? site.origin })),
+  ),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Projects by ${site.name}`,
+    itemListElement: projects.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: p.data.name,
+        description: p.data.tagline,
+        url: p.data.url,
+        creator: { "@id": `${site.origin}/#person` },
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Projects: Watch Women's Sports (IRL) and more"
+  description="Watch Women's Sports (IRL), Women Are Elite, Virtual Sparkles and Live Oak Camp: things Lucy Schodell has built."
+  schema={schema}
+  ogPhoto="pitch-night-check"
+  crumbs={[{ name: "Projects", path: "/projects/" }]}
+>
+  <PageHeader
+    label="Projects"
+    title="Things I've built"
+    lede="These mostly started because I wanted something to exist and it didn't, or it did exist but was hard to use. Some of them are still small. I keep working on them anyway."
+  />
+
+  <div class="projects">
+    {
+      projects.map((project, i) => (
+        <article class="project" id={project.id}>
+          <div class="wrap project-inner">
+            <div class="project-media">
+              {project.data.photo && (
+                <Figure
+                  photo={project.data.photo}
+                  ratio="4/3"
+                  sizes="(max-width: 58rem) 100vw, 45vw"
+                  loading={i === 0 ? "eager" : "lazy"}
+                />
+              )}
+              {project.data.gallery.length > 0 && (
+                <div class="gallery">
+                  {project.data.gallery.map((key) => (
+                    <Figure
+                      photo={key}
+                      ratio="1/1"
+                      sizes="(max-width: 58rem) 33vw, 15vw"
+                      bare
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div class="project-text">
+              <p class="label">
+                {[project.data.year, project.data.status, project.data.role]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+
+              <h2 class="project-name">{project.data.name}</h2>
+              <p class="project-tagline">{project.data.tagline}</p>
+
+              {project.data.body.map((para) => (
+                <p class="project-para">{para}</p>
+              ))}
+
+              {project.data.why && (
+                <blockquote class="project-why">
+                  {project.data.why}
+                  
+                </blockquote>
+              )}
+
+              {project.data.links.length > 0 && (
+                <ul class="project-links">
+                  {project.data.links.map((link) => (
+                    <li>
+                      <a href={link.url} rel="noopener">
+                        <span>{link.label}</span>
+                        <Icon name="arrow" size={14} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <section class="wrap note-band">
+    <p class="note">
+      More in progress.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project {
+    padding-block: var(--space-2xl);
+    border-top: 1px solid var(--rule);
+  }
+
+  .project:nth-child(even) {
+    background: var(--paper-sunk);
+  }
+
+  .project-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  /* Alternate the image side so the page reads like a spread. */
+  .project:nth-child(even) .project-media {
+    order: 2;
+  }
+
+  /* Hold the image alongside the text as the longer column scrolls past. */
+  @media (min-width: 58rem) {
+    .project-media {
+      position: sticky;
+      top: 5.5rem;
+    }
+  }
+
+  .gallery {
+    margin-top: var(--space-xs);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .project-name {
+    margin-top: var(--space-2xs);
+    font-size: var(--step-3);
+  }
+
+  .project-tagline {
+    margin-top: var(--space-2xs);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 34ch;
+  }
+
+  .project-para {
+    margin-top: var(--space-m);
+    color: var(--ink-soft);
+    max-width: 58ch;
+    line-height: 1.62;
+  }
+
+  .project-why {
+    margin: var(--space-l) 0 0;
+    padding-left: var(--space-s);
+    border-left: 2px solid var(--clay);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    max-width: 44ch;
+  }
+
+  .project-why cite {
+    display: block;
+    margin-top: var(--space-2xs);
+    font-family: var(--font-text);
+    font-size: var(--step--1);
+    font-style: normal;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .project-links {
+    list-style: none;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-m);
+  }
+
+  .project-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 3px;
+    transition: color var(--transition), border-color var(--transition);
+  }
+
+  .project-links a:hover {
+    color: var(--clay);
+    border-color: var(--clay);
+  }
+
+  .project-links :global(svg) {
+    transition: transform var(--transition);
+  }
+
+  .project-links a:hover :global(svg) {
+    transform: translateX(3px);
+  }
+
+  .note-band {
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--rule);
+  }
+
+  .note {
+    color: var(--ink-faint);
+    font-size: var(--step--1);
+    max-width: 58ch;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: 0.92em;
+  }
+
+  @media (max-width: 58rem) {
+    .project-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .project:nth-child(even) .project-media {
+      order: 0;
+    }
+
+    .project-media {
+      max-width: 34rem;
+    }
+  }
+</style>

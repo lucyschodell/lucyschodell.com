@@ -1,0 +1,124 @@
+[
+  {
+    "id": "technically-idea-village-2026",
+    "title": "Idea Village awards $1,500 prize to platform for watching women's sports",
+    "outlet": "Technical.ly",
+    "author": "Solomon Gustavo",
+    "date": "2026-06-23",
+    "url": "https://technical.ly/entrepreneurship/watch-womens-sports-irl-wins-idea-village-pitch-night/",
+    "excerpt": "Watch Women's Sports (IRL) took the grand prize at Idea Village's Pitch Night at the House of Blues in New Orleans, against four other finalists.",
+    "category": "Building",
+    "photo": "pitch-night-check",
+    "featured": true
+  },
+  {
+    "id": "ultra-gobi-race-report-2025",
+    "title": "\"I Love Seeing the World on My Own Two Feet\" - Ultra Gobi 400KM Race Report",
+    "outlet": "Ultra Gobi Series",
+    "date": "2025-11-18",
+    "url": "https://www.ultragobiseries.com/news/lucy-schodell-i-love-seeing-the-world-on-my-own-two-feet-ultra-gobi-400km-race-report",
+    "excerpt": "The race's own write-up of my 94 hour crossing of the Gobi, running it with Jack Carey, and the scholarship money it raised for Live Oak Camp.",
+    "category": "Running",
+    "photo": "gobi-finish-capes",
+    "featured": true
+  },
+  {
+    "id": "advnture-most-fun-possible-2024",
+    "title": "\"I'm just trying to have the most fun possible\"",
+    "outlet": "Advnture",
+    "author": "Julia Clarke",
+    "date": "2024-03-15",
+    "url": "https://www.advnture.com/features/lucy-scholtz",
+    "excerpt": "On racing with a party vibe: my first marathon in 2008, moving into ultras in 2017, and a training week built on long steady miles rather than speed work.",
+    "category": "Profile",
+    "photo": "portrait-atacama-joy",
+    "featured": true
+  },
+  {
+    "id": "trail-runner-300-mile-party-2023",
+    "title": "Lucy Scholz's 300-Mile Party Across the Desert",
+    "outlet": "Trail Runner Magazine",
+    "date": "2023-05-01",
+    "url": "https://www.trailrunnermag.com/people/culture-people/lucy-scholzs-speed-project-record/",
+    "excerpt": "Trail Runner's account of The Speed Project Solo record, and a race that looked more like a party moving across the desert than a trip to the pain cave.",
+    "category": "Running",
+    "featured": false
+  },
+  {
+    "id": "geaux-girl-sheroes-2023",
+    "title": "Lucy Scholz, in the Sheroes series",
+    "outlet": "Geaux Girl Magazine",
+    "author": "Tessa Smith",
+    "date": "2023-05-15",
+    "url": "https://geauxgirlmagazine.org/lucy-scholz/",
+    "excerpt": "A New Orleans profile covering Live Oak Wilderness Camp, coaching with Youth Run NOLA, and running with The 504th, plus the line I keep coming back to: 'running is a team sport.'",
+    "category": "Profile",
+    "featured": false
+  },
+  {
+    "id": "witry-community-connect",
+    "title": "Community Connect: Jack Carey and Lucy Scholz",
+    "outlet": "Witry Collective",
+    "date": "2023-05-01",
+    "url": "https://wcnola.com/may-community-connect-jack-carey-lucy-scholz/",
+    "excerpt": "A New Orleans neighbourhood conversation with me and Jack Carey, who I've run a lot of miles with.",
+    "category": "Profile",
+    "featured": false
+  },
+  {
+    "id": "glorious-radical-who-2026",
+    "title": "Radical Who?",
+    "outlet": "Glorious Sport",
+    "date": "2026-06-25",
+    "url": "https://glorioussport.com/articles/tilly-gw-repzine-speed-project-radical-equity-lalv-2025/",
+    "excerpt": "On Tilly GW's Radical Equity Program, which brought the LA to Vegas solo start line to 51% female and non-binary runners in 2025. That was the field I raced in.",
+    "category": "Women's sports",
+    "photo": "tsp-crew-night",
+    "featured": false
+  },
+  {
+    "id": "outside-driest-place-on-earth",
+    "title": "A Race Across the Driest Place on Earth",
+    "outlet": "Outside",
+    "date": "2023-12-01",
+    "url": "https://www.outsideonline.com/running/the-speed-project-atacama-chile/",
+    "excerpt": "Outside's dispatch from The Speed Project Atacama: 300 plus miles and 11,000 feet of climbing from Iquique to San Pedro de Atacama, with no spectators, no cell reception, and no fixed route.",
+    "category": "Running",
+    "photo": "hero-atacama-highway",
+    "featured": false
+  },
+  {
+    "id": "runners-world-speed-project-record",
+    "title": "Lucy Scholz's Speed Project record",
+    "outlet": "Runner's World",
+    "date": "2023-04-01",
+    "url": "https://www.runnersworld.com/runners-stories/a43729195/lucy-scholz-speed-project-record/",
+    "excerpt": "Runner's World on the 2023 Speed Project Solo: 84 hours and 45 minutes, first overall, on a first attempt at anything beyond 100 miles.",
+    "category": "Running",
+    "featured": false
+  },
+  {
+    "id": "weeviews-how-to-run-340-miles",
+    "title": "The Speed Project: How to Run 340 Miles Across the Desert",
+    "outlet": "WeeViews",
+    "author": "Abigail Lock",
+    "date": "2023-05-01",
+    "url": "https://www.weeviews.com/rundown/the-speed-project",
+    "excerpt": "A long interview about preparation over raw speed: 'Planning and preparation is one of my strong suits,' and 'so much of ultrarunning is mental.'",
+    "category": "Running",
+    "photo": "tsp-crew-arch",
+    "featured": false
+  },
+  {
+    "id": "itra-ultra-gobi-wild-soul",
+    "title": "Ultra Gobi 400: Into the Heart of China’s Wild Soul",
+    "outlet": "ITRA Community Hub",
+    "author": "Ian Corless",
+    "date": "2025-11-03",
+    "url": "https://itra.run/api/CommunityHub/GetCommunityArticlesDetail?communityArticleId=efc1fa47-cd15-4897-9548-5879628beb1d",
+    "excerpt": "Ian Corless's photo essay from the 2025 race, under the heading 'Teamwork Makes the Dream Work': “Over five relentless days, they navigated fatigue, breakdown, and the psychological toll of isolation. Together, they moved forward, trading off leadership, motivating each other, and managing the fine line between pace and survival.”",
+    "category": "Running",
+    "photo": "gobi-start-flags",
+    "featured": false
+  }
+]

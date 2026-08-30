@@ -1,0 +1,37 @@
+[
+  {
+    "id": "substack",
+    "label": "Substack",
+    "handle": "lucyschodell.substack.com",
+    "url": "https://lucyschodell.substack.com",
+    "icon": "substack",
+    "note": "Race reports and everything else, written long.",
+    "order": 1
+  },
+  {
+    "id": "instagram",
+    "label": "Instagram",
+    "handle": "@lucyschodell",
+    "url": "https://instagram.com/lucyschodell",
+    "icon": "instagram",
+    "note": "The main one.",
+    "order": 2
+  },
+  {
+    "id": "watch-womens-sports",
+    "label": "Watch Women's Sports (IRL)",
+    "handle": "watchwomenssportsirl.com",
+    "url": "https://www.watchwomenssportsirl.com/",
+    "icon": "globe",
+    "note": "Find a game near you.",
+    "order": 3
+  },
+  {
+    "id": "linkedin",
+    "label": "LinkedIn",
+    "handle": "Lucy Schodell",
+    "url": "https://www.linkedin.com/in/lucy-schodell/",
+    "icon": "linkedin",
+    "order": 4
+  }
+]

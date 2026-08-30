@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SectionHead from "../components/SectionHead.astro";
+import MediaFilter from "../components/MediaFilter.astro";
+import Icon from "../components/Icon.astro";
+import { getMedia, getWriting } from "../lib/content";
+import { site } from "../lib/site";
+import { collectionPageSchema, PERSON_ID } from "../lib/schema";
+
+const media = await getMedia();
+const writing = await getWriting();
+
+const own = media.filter((m) => m.kind === "writing");
+const about = media.filter((m) => m.kind === "press");
+
+const categories = [
+  { value: "all", label: "All" },
+  { value: "Running", label: "Running" },
+  { value: "Endurance", label: "Endurance" },
+  { value: "Personal", label: "Personal" },
+  { value: "Women's sports", label: "Women's sports" },
+  { value: "Building", label: "Building" },
+];
+
+const schema = [
+  collectionPageSchema(
+    "/writing/",
+    "Writing: race reports and essays",
+    "Race reports and essays, plus press written about her.",
+    media.filter((m) => m.kind === "writing" || m.kind === "press").map((m) => ({
+      name: m.title,
+      url: m.url,
+    })),
+  ),
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `Writing by ${site.name}`,
+    url: `${site.origin}/writing/`,
+    author: { "@id": `${site.origin}/#person` },
+    blogPost: writing.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      datePublished: post.data.date,
+      url: post.data.url,
+      description: post.data.excerpt,
+      author: { "@id": `${site.origin}/#person` },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Writing: race reports and essays"
+  description="Race reports and essays by Lucy Schodell: the Atacama, the Moab 240, Ultra Gobi, and why she built Watch Women's Sports (IRL), plus press written about her."
+  schema={schema}
+  ogPhoto="gobi-into-the-sun"
+  crumbs={[{ name: "Writing", path: "/writing/" }]}
+>
+  <PageHeader
+    label="Writing"
+    title="Race reports, and thinking out loud"
+    lede="I write something after every big race, usually a few weeks later, and it's usually more about the people than the miles. It all lives on Substack. This page is just the index."
+  />
+
+  <section class="wrap sub">
+    <a href="https://lucyschodell.substack.com" class="subscribe" rel="noopener">
+      <Icon name="substack" size={18} />
+      <span>
+        <strong>Read on Substack</strong>
+        <span class="sub-note">{writing.length} posts · new ones after each race</span>
+      </span>
+      <Icon name="arrow" size={16} />
+    </a>
+  </section>
+
+  <section class="wrap band">
+    <SectionHead label="Mine" title="Essays and race reports" as="h2" />
+    <MediaFilter items={own} filters={categories} match="category" />
+  </section>
+
+  {
+    about.length > 0 && (
+      <section class="wrap band press-band">
+        <SectionHead
+          label="Elsewhere"
+          title="Written about me"
+          as="h2"
+        />
+        <ul class="press-list">
+          {about.map((item) => (
+            <li>
+              <a href={item.url} rel="noopener">
+                <span class="press-outlet">{item.source}</span>
+                <span class="press-title">{item.title}</span>
+                <span class="press-year numeric">{item.date.slice(0, 4)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .sub {
+    margin-bottom: var(--space-m);
+  }
+
+  .subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .subscribe:hover {
+    border-color: var(--clay);
+    background: var(--clay-wash);
+  }
+
+  .subscribe strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+  }
+
+  .sub-note {
+    display: block;
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .subscribe :global(svg:last-child) {
+    transition: transform var(--transition);
+  }
+
+  .subscribe:hover :global(svg:last-child) {
+    transform: translateX(4px);
+  }
+
+  .band {
+    padding-block: var(--space-2xl);
+  }
+
+  .press-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .press-list a {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr) 4rem;
+    gap: var(--space-m);
+    align-items: baseline;
+    padding-block: var(--space-m);
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    transition: color var(--transition), padding-inline-start var(--transition);
+  }
+
+  .press-list a:hover {
+    color: var(--clay);
+    padding-inline-start: var(--space-2xs);
+  }
+
+  .press-outlet {
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .press-list a:hover .press-outlet {
+    color: var(--clay);
+  }
+
+  .press-title {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.25;
+  }
+
+  .press-year {
+    text-align: right;
+    color: var(--ink-faint);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 46rem) {
+    .press-list a {
+      grid-template-columns: minmax(0, 1fr) 3.5rem;
+      gap: var(--space-2xs) var(--space-s);
+    }
+
+    .press-outlet {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .press-title {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .press-year {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+</style>

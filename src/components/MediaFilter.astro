@@ -1,0 +1,149 @@
+---
+import MediaCard from "./MediaCard.astro";
+import type { MediaItem } from "../lib/content";
+
+interface Props {
+  items: MediaItem[];
+  /** Filter buttons, in order. The first is selected on load. */
+  filters: { value: string; label: string }[];
+  /** How each item is matched against a filter value. */
+  match?: "kind" | "category";
+  emptyMessage?: string;
+}
+
+const {
+  items,
+  filters,
+  match = "kind",
+  emptyMessage = "Nothing here yet.",
+} = Astro.props;
+
+const valueOf = (item: MediaItem) => (match === "kind" ? item.kind : item.category);
+
+const counts = new Map<string, number>();
+for (const item of items) {
+  const v = valueOf(item);
+  counts.set(v, (counts.get(v) ?? 0) + 1);
+}
+
+// Hide filters that would match nothing.
+const shown = filters.filter((f) => f.value === "all" || (counts.get(f.value) ?? 0) > 0);
+---
+
+<div class="filterable" data-filterable>
+  {
+    shown.length > 1 && (
+      <div class="filters" role="group" aria-label="Filter by type">
+        {shown.map((f, i) => (
+          <button
+            type="button"
+            class="filter"
+            data-filter={f.value}
+            aria-pressed={i === 0 ? "true" : "false"}
+          >
+            {f.label}
+            {f.value !== "all" && <span class="count">{counts.get(f.value)}</span>}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="grid" data-grid>
+    {
+      items.map((item) => (
+        <div class="cell" data-value={valueOf(item)}>
+          <MediaCard item={item} />
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="empty" data-empty hidden>{emptyMessage}</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-filterable]").forEach((root) => {
+    const buttons = root.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const cells = root.querySelectorAll<HTMLElement>(".cell");
+    const empty = root.querySelector<HTMLElement>("[data-empty]");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const value = btn.dataset.filter ?? "all";
+
+        buttons.forEach((b) =>
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false"),
+        );
+
+        let visible = 0;
+        cells.forEach((cell) => {
+          const show = value === "all" || cell.dataset.value === value;
+          cell.hidden = !show;
+          if (show) visible++;
+        });
+
+        if (empty) empty.hidden = visible > 0;
+      });
+    });
+  });
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-l);
+  }
+
+  .filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.5em 0.9em;
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: 100px;
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition),
+      border-color var(--transition);
+  }
+
+  .filter:hover {
+    border-color: var(--clay);
+    color: var(--clay);
+  }
+
+  .filter[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .count {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.6;
+    font-size: 0.9em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-xl) var(--space-l);
+  }
+
+  .cell[hidden] {
+    display: none;
+  }
+
+  .empty {
+    color: var(--ink-faint);
+    padding-block: var(--space-l);
+  }
+</style>

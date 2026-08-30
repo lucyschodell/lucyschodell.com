@@ -1,0 +1,490 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Figure from "../components/Figure.astro";
+import MediaCard from "../components/MediaCard.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../lib/site";
+import {
+  getMedia,
+  getProjects,
+  getRaces,
+  pickFeatured,
+} from "../lib/content";
+
+const media = await getMedia();
+const races = await getRaces();
+const projects = await getProjects();
+
+const featuredMedia = pickFeatured(media, 6);
+const [lead, ...restFeatured] = featuredMedia;
+const secondary = restFeatured.slice(0, 4);
+const latest = media.filter((m) => m.id !== lead?.id).slice(0, 5);
+
+const featuredRaces = races.filter((r) => r.data.featured).slice(0, 4);
+const leadProject = projects.find((p) => p.data.featured) ?? projects[0];
+---
+
+<BaseLayout
+  title={`${site.name}: ultrarunner and builder in New Orleans`}
+  bareTitle
+  description={site.description}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1>Lucy<br />Schodell</h1>
+        <p class="hero-tagline">{site.tagline}</p>
+        <p class="hero-body">
+          I've run across the Atacama, the Mojave, and the Gobi, usually a few hundred miles
+          at a time and always with a crew. In between races I run a summer camp for young
+          people in New Orleans, and I'm building <a href="/projects/"
+            >Watch Women's Sports (IRL)</a
+          >. Most of what I write ends up on <a
+            href="https://lucyschodell.substack.com"
+            rel="noopener">Substack</a
+          >.
+        </p>
+        <p class="hero-links">
+          <a href="/running/" class="btn">
+            <span>The running</span>
+            <Icon name="arrow" size={16} />
+          </a>
+          <a href="/about/" class="btn btn-quiet">More about me</a>
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <Figure
+          photo="hero-atacama-highway"
+          ratio="4/5"
+          sizes="(max-width: 60rem) 100vw, 42vw"
+          widths={[600, 900, 1300]}
+          loading="eager"
+          fetchpriority="high"
+          caption="The Speed Project Solo, Atacama. 315 miles from Iquique to San Pedro."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured story -->
+  {
+    lead && (
+      <section class="wrap band">
+        <SectionHead label="Featured" title="Start here" />
+        <div class="lead-grid">
+          <MediaCard item={lead} variant="feature" />
+          <div class="lead-side">
+            {secondary.map((item) => (
+              <MediaCard item={item} variant="compact" />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Running -->
+  <section class="running-band">
+    <div class="wrap">
+      <SectionHead
+        label="Running"
+        title="Long distances, mostly in deserts"
+        href="/running/"
+        linkText="All of it"
+      />
+
+      <div class="running-grid">
+        <div class="running-intro">
+          <p class="lede">
+            I ran my first marathon as a college freshman in 2008 and my first ultra in 2017.
+            In 2023 I entered The Speed Project Solo, 293 miles from Santa Monica to Las
+            Vegas, as my first attempt at anything past 100 miles. I won it outright.
+          </p>
+          <p>
+            Since then I've run across the Atacama, finished the Moab 240 with a ten week old
+            at home, and spent four days crossing the Gobi desert at Ultra Gobi. Most of
+            these races have also been fundraisers for the camp I run.
+          </p>
+          <p class="quote-attrib">
+            <span class="quote">"Running is a team sport, and I've got the best team."</span>
+          </p>
+        </div>
+
+        <ul class="race-strip">
+          {
+            featuredRaces.map((race) => (
+              <li>
+                <a href={race.data.reportUrl ?? "/running/"} rel="noopener">
+                  <span class="strip-name">{race.data.name}</span>
+                  <span class="strip-meta numeric">
+                    <span>{race.data.year}</span>
+                    <span class="strip-dot">·</span>
+                    <span>{race.data.distance}</span>
+                    {race.data.time && (
+                      <>
+                        <span class="strip-dot">·</span>
+                        <span>{race.data.time}</span>
+                      </>
+                    )}
+                  </span>
+                  {race.data.result && <span class="strip-result">{race.data.result}</span>}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="wrap photo-row">
+      <Figure photo="gobi-into-the-sun" ratio="4/5" sizes="(max-width: 48rem) 50vw, 25vw"
+        bare />
+      <Figure photo="moab-bib-and-baby" ratio="4/5" sizes="(max-width: 48rem) 50vw, 25vw"
+        bare />
+      <Figure
+        photo="tsp-santa-monica-arch"
+        ratio="4/5"
+        sizes="(max-width: 48rem) 50vw, 25vw"
+        bare
+      />
+      <Figure photo="gobi-finish-capes" ratio="4/5" sizes="(max-width: 48rem) 50vw, 25vw"
+        bare />
+    </div>
+  </section>
+
+  <!-- Featured project -->
+  {
+    leadProject && (
+      <section class="wrap band">
+        <SectionHead
+          label="Projects"
+          title="Things I've built"
+          href="/projects/"
+          linkText="All projects"
+        />
+
+        <div class="project-feature">
+          <div class="project-media">
+            {leadProject.data.photo && (
+              <Figure
+                photo={leadProject.data.photo}
+                ratio="5/4"
+                sizes="(max-width: 56rem) 100vw, 45vw"
+              />
+            )}
+          </div>
+
+          <div class="project-text">
+            <p class="label">
+              {[leadProject.data.year, leadProject.data.status].filter(Boolean).join(" · ")}
+            </p>
+            <h3 class="project-name">{leadProject.data.name}</h3>
+            <p class="project-tagline">{leadProject.data.tagline}</p>
+            <p class="project-body">{leadProject.data.body[0]}</p>
+            {leadProject.data.why && (
+              <blockquote class="project-why">{leadProject.data.why}</blockquote>
+            )}
+            <p class="hero-links">
+              <a href="/projects/" class="btn">
+                <span>Read about it</span>
+                <Icon name="arrow" size={16} />
+              </a>
+              {leadProject.data.url && (
+                <a href={leadProject.data.url} class="btn btn-quiet" rel="noopener">
+                  Visit the site
+                </a>
+              )}
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Latest -->
+  <section class="wrap band">
+    <SectionHead label="Selected" title="Recent work and appearances" href="/writing/" />
+    <div class="latest-grid">
+      {latest.map((item) => <MediaCard item={item} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    padding-block: clamp(2.5rem, 7vw, 6rem) var(--space-2xl);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: var(--step-5);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+    font-variation-settings: "SOFT" 0, "WONK" 1;
+  }
+
+  .hero-tagline {
+    margin-top: var(--space-m);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.22;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  .hero-body {
+    margin-top: var(--space-m);
+    max-width: 46ch;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .hero-body a {
+    color: var(--ink);
+    text-decoration-color: var(--rule-strong);
+  }
+
+  .hero-links {
+    margin-top: var(--space-l);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.7em 1.15em;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    transition: background var(--transition), transform var(--transition);
+  }
+
+  .btn:hover {
+    background: var(--clay);
+  }
+
+  .btn :global(svg) {
+    transition: transform var(--transition);
+  }
+
+  .btn:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  .btn-quiet {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--rule-strong);
+  }
+
+  .btn-quiet:hover {
+    background: transparent;
+    border-color: var(--clay);
+    color: var(--clay);
+  }
+
+  /* ---------- Bands ---------- */
+  .band {
+    padding-block: var(--space-2xl);
+  }
+
+  .lead-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .lead-side {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .lead-side > :global(* + *) {
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ---------- Running ---------- */
+  .running-band {
+    padding-block: var(--space-2xl);
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--rule);
+  }
+
+  .running-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .lede {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.38;
+  }
+
+  .running-intro p + p {
+    margin-top: var(--space-s);
+    color: var(--ink-soft);
+  }
+
+  .quote-attrib {
+    margin-top: var(--space-m) !important;
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+  }
+
+  .quote {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .race-strip {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .race-strip a {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-block: var(--space-s);
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    transition: padding-inline-start var(--transition), color var(--transition);
+  }
+
+  .race-strip a:hover {
+    padding-inline-start: var(--space-2xs);
+    color: var(--clay);
+  }
+
+  .strip-name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+
+  .strip-meta {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .strip-dot {
+    opacity: 0.5;
+  }
+
+  .strip-result {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .photo-row {
+    margin-top: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xs);
+  }
+
+  /* ---------- Project ---------- */
+  .project-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  .project-name {
+    margin-top: var(--space-2xs);
+    font-size: var(--step-3);
+  }
+
+  .project-tagline {
+    margin-top: var(--space-2xs);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 30ch;
+  }
+
+  .project-body {
+    margin-top: var(--space-m);
+    color: var(--ink-soft);
+    max-width: 54ch;
+  }
+
+  .project-why {
+    margin: var(--space-m) 0 0;
+    padding-left: var(--space-s);
+    border-left: 2px solid var(--clay);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    max-width: 44ch;
+  }
+
+  /* ---------- Latest ---------- */
+  .latest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-xl) var(--space-l);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 62rem) {
+    .hero-grid,
+    .lead-grid,
+    .running-grid,
+    .project-feature {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-grid {
+      gap: var(--space-xl);
+    }
+
+    .hero-image {
+      max-width: 30rem;
+    }
+
+    .project-media {
+      max-width: 34rem;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .photo-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

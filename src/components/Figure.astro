@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets";
+import { getPhoto, type PhotoKey } from "../lib/photos";
+
+interface Props {
+  /**
+   * A key from the photo registry. Typed to keep editor autocomplete for
+   * literals while still accepting the plain strings that come out of the
+   * content collections — unknown keys throw below, so a bad key fails the build.
+   */
+  photo: PhotoKey | (string & {});
+  /** Rendered width hint passed to the image service. */
+  widths?: number[];
+  sizes?: string;
+  /** Crop to a fixed ratio, e.g. "3/2". Omit to keep the original ratio. */
+  ratio?: string;
+  caption?: string;
+  /** Suppress caption and credit — for decorative images in tight grids. */
+  bare?: boolean;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  class?: string;
+}
+
+const {
+  photo,
+  widths = [480, 800, 1200, 1600],
+  sizes = "(max-width: 48rem) 100vw, 50vw",
+  ratio,
+  caption,
+  bare = false,
+  loading = "lazy",
+  fetchpriority = "auto",
+  class: className,
+} = Astro.props;
+
+const found = getPhoto(photo as PhotoKey);
+if (!found) throw new Error(`Unknown photo key: ${photo}`);
+
+const showCaption = !bare && Boolean(caption || found.credit);
+---
+
+<figure class:list={["figure", className]}>
+  <div class="frame" style={ratio ? `aspect-ratio:${ratio}` : undefined}>
+    <Image
+      src={found.src}
+      alt={found.alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding={loading === "eager" ? "sync" : "async"}
+    />
+  </div>
+  {
+    showCaption && (
+      <figcaption>
+        {caption}
+        {caption && found.credit && <span class="sep"> · </span>}
+        {found.credit && <span class="credit">{found.credit}</span>}
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .figure {
+    margin: 0;
+  }
+
+  .frame {
+    overflow: hidden;
+    background: var(--paper-sunk);
+    border-radius: var(--radius);
+  }
+
+  .frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.001);
+    transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  figcaption {
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    line-height: 1.45;
+    color: var(--ink-faint);
+    max-width: 52ch;
+  }
+
+  .credit {
+    font-style: italic;
+  }
+</style>

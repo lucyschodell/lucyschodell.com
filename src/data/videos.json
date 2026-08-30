@@ -1,0 +1,50 @@
+[
+  {
+    "id": "moab-240-rad",
+    "title": "Ultra Runner Lucy Schodell Runs The Moab 240",
+    "channel": "R.A.D®",
+    "date": "2025-10-23",
+    "url": "https://www.youtube.com/watch?v=RFguUrHXdQM",
+    "youtubeId": "RFguUrHXdQM",
+    "description": "A short film about my Moab 240, made by R.A.D. 240 miles of desert, canyon, and mountain, with my closest friends there, along with my wife Maggie and our ten week old daughter.",
+    "category": "Racing",
+    "photo": "video-moab-240-rad",
+    "featured": true
+  },
+  {
+    "id": "lalv-2025-solo-ep2",
+    "title": "Episode 2 // LALV 2025 // Solo Day 2 & 3",
+    "channel": "MAKE RUNNING",
+    "date": "2025-03-27",
+    "url": "https://www.youtube.com/watch?v=dZ1-1-sNBVE",
+    "youtubeId": "dZ1-1-sNBVE",
+    "description": "Race coverage from days two and three of the 2025 solo run from Los Angeles to Las Vegas, catching up with Team Solo as the field pushes through the heat into Palmdale, Adelanto, Victorville, and Barstow.",
+    "category": "Racing",
+    "photo": "video-lalv-2025-ep2",
+    "featured": false
+  },
+  {
+    "id": "tsp-atacama-rad",
+    "title": "The Speed Project Atacama",
+    "channel": "R.A.D®",
+    "date": "2023-12-22",
+    "url": "https://www.youtube.com/watch?v=lxC9Z3HmGn8",
+    "youtubeId": "lxC9Z3HmGn8",
+    "description": "Alex Roudayna and I run solo through the driest desert on earth, which nobody had done on that route before.",
+    "category": "Adventures",
+    "photo": "video-tsp-atacama-rad",
+    "featured": true
+  },
+  {
+    "id": "this-is-your-mile",
+    "title": "Make Running Presents: THIS IS YOUR MILE",
+    "channel": "MAKE RUNNING",
+    "date": "2025-06-27",
+    "url": "https://www.youtube.com/watch?v=HSZU84ScLlQ",
+    "youtubeId": "HSZU84ScLlQ",
+    "description": "A film by Ashley Stewart, made during the 2025 run from Los Angeles to Las Vegas. It's 'a mile for every woman who's ever been told she can't.' I ran it as part of Team Solo.",
+    "category": "Adventures",
+    "photo": "video-this-is-your-mile",
+    "featured": true
+  }
+]

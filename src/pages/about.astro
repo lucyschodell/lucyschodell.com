@@ -1,0 +1,343 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Figure from "../components/Figure.astro";
+import Icon from "../components/Icon.astro";
+import { getLinks } from "../lib/content";
+import { site } from "../lib/site";
+import { profilePageSchema } from "../lib/schema";
+
+const links = await getLinks();
+
+const facts = [
+  { term: "Live in", detail: "New Orleans, Louisiana" },
+  { term: "Day job", detail: "Chief Operating Officer, Live Oak Camp" },
+  { term: "Also building", detail: "Watch Women's Sports (IRL)" },
+  { term: "Grew up in", detail: "Baltimore, Maryland" },
+  { term: "Studied", detail: "History and bioethics at UVA; M.S. Education at Johns Hopkins" },
+  { term: "Run with", detail: "The 504th, and Youth Run NOLA as a coach" },
+];
+---
+
+<BaseLayout
+  title="About Lucy Schodell, formerly Lucy Scholz"
+  bareTitle
+  description="Lucy Schodell, who also raced as Lucy Scholz: ultrarunner, COO of Live Oak Camp, and founder of Watch Women's Sports (IRL), in New Orleans."
+  schema={[profilePageSchema("/about/")]}
+  ogPhoto="portrait-gobi-jack"
+  crumbs={[{ name: "About", path: "/about/" }]}
+>
+  <article class="about">
+    <div class="wrap top">
+      <div class="top-text">
+        <p class="label">About</p>
+        <h1>I like doing hard things with a team.</h1>
+        <p class="lede">Running is a team sport, but so is life.</p>
+      </div>
+      <div class="top-photo">
+        <Figure
+          photo="portrait-gobi-jack"
+          ratio="4/5"
+          sizes="(max-width: 56rem) 100vw, 40vw"
+          loading="eager"
+          fetchpriority="high"
+          caption="With Jack Carey after the Ultra Gobi 400K, where we finished together."
+        />
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="prose">
+        <p>
+          I grew up in Baltimore and spent ten summers at a camp in Virginia, first as a
+          camper, then as a CIT, a counselor, and eventually head of the waterfront. I
+          studied history and bioethics at the University of Virginia, moved to New Orleans
+          in 2012 to teach geometry with Teach For America, and stayed.
+        </p>
+
+        <p>
+          In 2015, I helped start <a href="https://www.liveoakcamp.com/" rel="noopener"
+            >Live Oak Camp</a
+          >, which is a sleep-away camp that connects New Orleans future leaders through
+          time at camp, on back-packing trips, and in leadership development programs
+          throughout the year. I've been there since the beginning and now run it as COO.
+          It's the through-line for most of the rest: several of my races have doubled as
+          fundraisers for camp scholarships, including the Ultra Gobi, which brought in
+          more than $10,000.
+        </p>
+
+        <h2>The running</h2>
+
+        <p>
+          I ran my first marathon in 2008, as a college freshman, and my first ultra in
+          2017. Then in March 2023 I entered The Speed Project Solo, an unsanctioned 293
+          mile run from Santa Monica to Las Vegas. It was my first attempt at anything
+          beyond 100 miles, and I won it outright in 84 hours and 45 minutes, with a crew of
+          nine women behind me.
+        </p>
+
+        <p>
+          Since then I've crossed the Atacama, run the Moab 240 with a ten week old at home,
+          gone back to Los Angeles twice more, and finished the Ultra Gobi 400K in China.
+          That one was 247 miles, self-navigated and self-supported, and it took 94 hours
+          and change. I crossed the line holding hands with Jack Carey, who I've run a lot
+          of miles with.
+        </p>
+
+        <blockquote>
+          Running ultras has never really been about running or the numbers. It's about
+          people, community, connection, and adventure.
+        </blockquote>
+
+        <h2>The building</h2>
+
+        <p>
+          In 2025 a friend who runs a women's sports bar told me she was spending hours
+          every week just working out where games were being broadcast. So I built
+          <a href="/projects/">Watch Women's Sports (IRL)</a>, which puts it all in one
+          place: games you can go to, and games you can watch at home, across every league
+          and level. In June 2026 it won the grand prize at Idea Village's Pitch Night here
+          in New Orleans.
+        </p>
+
+        <p>
+          The way I put it at that pitch: <em
+            >"I'm equally excited about writing code and building databases as I am
+            cheering on the Tulane women's basketball team."</em
+          >
+        </p>
+
+        <p>
+          I write about all of it, at length, on
+          <a href="https://lucyschodell.substack.com" rel="noopener">Substack</a>. I live in
+          New Orleans with my wife and daughter.
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap facts-band">
+      <dl class="facts">
+        {
+          facts.map((f) => (
+            <div>
+              <dt>{f.term}</dt>
+              <dd>{f.detail}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="wrap photos">
+      <Figure photo="moab-hug" ratio="3/2" sizes="(max-width: 48rem) 100vw, 50vw" />
+      <Figure photo="atacama-crew" ratio="3/2" sizes="(max-width: 48rem) 100vw, 50vw" />
+    </div>
+
+    <div class="wrap contact">
+      <h2 class="contact-title">Find me elsewhere</h2>
+      <ul class="link-list">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.data.url} rel="me noopener">
+                <Icon name={l.data.icon} size={18} />
+                <span class="ll-label">{l.data.label}</span>
+                {l.data.handle && <span class="ll-handle">{l.data.handle}</span>}
+                {l.data.note && <span class="ll-note">{l.data.note}</span>}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="alias">
+        Some older press is filed under my former name, {site.formerName}.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    padding-block: clamp(2rem, 6vw, 4rem) 0;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .top h1 {
+    margin-top: var(--space-s);
+    font-size: var(--step-4);
+    max-width: 15ch;
+  }
+
+  .lede {
+    margin-top: var(--space-m);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
+
+  /* Held to a readable measure, flush with the page's left edge. */
+  .prose {
+    margin-top: var(--space-2xl);
+    max-width: 40rem;
+  }
+
+  .prose p {
+    font-size: var(--step-0);
+    line-height: 1.72;
+    color: var(--ink-soft);
+  }
+
+  .prose p + p {
+    margin-top: var(--space-s);
+  }
+
+  .prose a {
+    color: var(--ink);
+    text-decoration-color: var(--rule-strong);
+  }
+
+  .prose h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-s);
+    font-size: var(--step-2);
+    color: var(--ink);
+  }
+
+  .prose blockquote {
+    margin: var(--space-l) 0;
+    padding-left: var(--space-m);
+    border-left: 2px solid var(--clay);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.32;
+    color: var(--ink);
+  }
+
+  .facts-band {
+    margin-top: var(--space-2xl);
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-m);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    margin: 0;
+  }
+
+  .facts dt {
+    font-size: var(--step--1);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: var(--space-3xs);
+  }
+
+  .facts dd {
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .photos {
+    margin-top: var(--space-2xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-m);
+  }
+
+  .contact {
+    margin-top: var(--space-2xl);
+  }
+
+  .contact-title {
+    font-size: var(--step-2);
+    padding-bottom: var(--space-s);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: var(--space-l);
+  }
+
+  .link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-s);
+  }
+
+  .link-list a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: var(--space-2xs);
+    align-items: center;
+    padding: var(--space-s);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .link-list a:hover {
+    border-color: var(--clay);
+    background: var(--clay-wash);
+  }
+
+  .link-list :global(svg) {
+    grid-row: 1;
+    grid-column: 1;
+    color: var(--ink-faint);
+  }
+
+  .ll-label {
+    grid-row: 1;
+    grid-column: 2;
+    font-weight: 500;
+  }
+
+  .ll-handle {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .ll-note {
+    grid-row: 3;
+    grid-column: 2;
+    margin-top: var(--space-3xs);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  .alias {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 56rem) {
+    .top {
+      grid-template-columns: 1fr;
+    }
+
+    .top-photo {
+      max-width: 28rem;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .photos {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

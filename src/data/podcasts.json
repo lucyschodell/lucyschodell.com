@@ -1,0 +1,64 @@
+[
+  {
+    "id": "chasing-three-hours-58",
+    "show": "Chasing Three Hours",
+    "episode": "58. Lucy Scholz",
+    "host": "Josh Peterson",
+    "date": "2024-07-05",
+    "url": "https://open.spotify.com/episode/0TvoIdfVLsK6VoDolw84vd",
+    "altUrl": "https://podcasts.apple.com/us/podcast/58-lucy-scholz/id1690159858?i=1000661221056",
+    "altLabel": "Apple Podcasts",
+    "description": "The long version: running a marathon as a college freshman, learning to fit running around work, Boston in 2017, moving to trail, a first 100 miler paced by my wife, and how The Speed Project keeps turning up at pivotal moments.",
+    "topic": "Running",
+    "photo": "pod-chasing-three-hours",
+    "featured": true
+  },
+  {
+    "id": "just-in-stride-tsp-2023",
+    "show": "Just In Stride",
+    "episode": "Lucy Scholz on winning The Speed Project Solo and breaking the course record",
+    "host": "Justin Pugliese",
+    "date": "2023-04-26",
+    "url": "https://open.spotify.com/episode/3bNkq82viMNnatwEj3NCvB",
+    "altUrl": "https://www.youtube.com/watch?v=R06fjgyZcjU",
+    "altLabel": "YouTube",
+    "description": "Recorded a few weeks after the win. What it actually takes to run 293 miles from Los Angeles to Las Vegas, why I went in self-coached, and the crew of nine women who got me to Vegas.",
+    "topic": "The Speed Project",
+    "photo": "tsp-crew-arch",
+    "featured": true
+  },
+  {
+    "id": "in-her-nature-finding-your-team",
+    "show": "In Her Nature",
+    "episode": "Finding Your Team within Running",
+    "date": "2023-07-24",
+    "url": "https://open.spotify.com/episode/3LGrQk8R7iaaZSBWZIGU37",
+    "description": "On winning The Speed Project solo with an all-female crew, and why that sense of community matters so much in running.",
+    "topic": "Running",
+    "photo": "pod-in-her-nature",
+    "featured": true
+  },
+  {
+    "id": "rad-ran-across-the-desert",
+    "show": "R.A.D",
+    "episode": "r.an a.cross the d.esert (9 hours faster than everyone else) - Lucy Scholz",
+    "date": "2023-05-01",
+    "url": "https://open.spotify.com/episode/0EXc8gsqIxsBVNivhw5x4u",
+    "description": "The Speed Project Solo win, from the inside. 293 miles from Santa Monica to Las Vegas, finished faster than anyone else in the field.",
+    "topic": "The Speed Project",
+    "photo": "pod-rad-desert",
+    "featured": false
+  },
+  {
+    "id": "on-the-hour-lalv-2025",
+    "show": "ON THE HOUR, EVERY HOUR",
+    "episode": "LALV 2025 Reflections with Lucy Schodell",
+    "host": "MAKE RUNNING",
+    "date": "2025-08-11",
+    "url": "https://open.spotify.com/episode/6WggAjsCCMFVf0OBJCCMAE",
+    "description": "Looking back on the 2025 run from Los Angeles to Las Vegas, running solo and as part of Team Solo.",
+    "topic": "The Speed Project",
+    "photo": "pod-on-the-hour",
+    "featured": false
+  }
+]

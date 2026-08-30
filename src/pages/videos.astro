@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import MediaFilter from "../components/MediaFilter.astro";
+import { getMedia, getVideos } from "../lib/content";
+import { site } from "../lib/site";
+
+const videos = await getVideos();
+const media = await getMedia();
+const videoItems = media.filter((m) => m.kind === "video");
+
+const categories = [
+  { value: "all", label: "All" },
+  { value: "Running", label: "Running" },
+  { value: "Racing", label: "Racing" },
+  { value: "Training", label: "Training" },
+  { value: "Adventures", label: "Adventures" },
+  { value: "Projects", label: "Projects" },
+  { value: "Other", label: "Other" },
+];
+
+const schema =
+  videos.length > 0
+    ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: `Videos featuring ${site.name}`,
+          itemListElement: videos.map((v, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "VideoObject",
+              name: v.data.title,
+              description: v.data.description,
+              uploadDate: v.data.date,
+              url: v.data.url,
+            },
+          })),
+        },
+      ]
+    : [];
+---
+
+<BaseLayout
+  title="Videos: films and race coverage"
+  description={`Films and race coverage featuring ${site.name}: the Moab 240, The Speed Project Atacama and the 2025 run from Los Angeles to Las Vegas.`}
+  schema={schema}
+  ogPhoto="video-moab-240-rad"
+  crumbs={[{ name: "Videos", path: "/videos/" }]}
+>
+  <PageHeader
+    label="Videos"
+    title="Video"
+    lede="I don't have my own channel. These are films and race coverage made by other people, mostly R.A.D and MAKE RUNNING, that I happen to be in."
+  />
+
+  <section class="wrap band">
+    {
+      videos.length > 0 ? (
+        <>
+          <h2 class="visually-hidden">All videos</h2>
+          <MediaFilter items={videoItems} filters={categories} match="category" />
+        </>
+      ) : (
+        <div class="placeholder">
+          <p class="placeholder-lede">Nothing here yet.</p>
+          <p>
+            This page is wired up and waiting. Add entries to
+            <code>src/data/videos.json</code> and they'll appear here, and the Videos link
+            will appear in the site navigation automatically.
+          </p>
+          <p class="placeholder-schema">
+            Each entry takes: <code>title</code>, <code>date</code>, <code>url</code>,
+            <code>description</code>, <code>category</code>, and optionally
+            <code>youtubeId</code>, <code>photo</code> and <code>featured</code>.
+          </p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .band {
+    padding-block: var(--space-l) var(--space-2xl);
+  }
+
+  .placeholder {
+    max-width: 54ch;
+    padding: var(--space-l);
+    border: 1px dashed var(--rule-strong);
+    border-radius: var(--radius);
+    color: var(--ink-soft);
+  }
+
+  .placeholder-lede {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    color: var(--ink);
+    margin-bottom: var(--space-s);
+  }
+
+  .placeholder p + p {
+    margin-top: var(--space-s);
+  }
+
+  .placeholder-schema {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: 0.9em;
+    background: var(--paper-sunk);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+  }
+</style>

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "its-always-about-the-people",
+    "title": "It's always about the people",
+    "subtitle": "reflections on ultras, adventures, and life - specifically fomo and joy",
+    "excerpt": "I'll miss the community, shared suffering (and shared triumph), the silliness, absurdity, and challenge of the entire endeavor. Mostly, I'll miss the people. It's always about the people.",
+    "date": "2026-03-29",
+    "url": "https://lucyschodell.substack.com/p/its-always-about-the-people",
+    "source": "Substack",
+    "category": "Personal",
+    "photo": "atacama-crew",
+    "featured": true
+  },
+  {
+    "id": "making-it-easier-to-show-up-for-womens",
+    "title": "Making It Easier to Show Up for Women's Sports",
+    "subtitle": "Why I Built Watch Women's Sports (IRL)",
+    "excerpt": "I was an athlete as a kid. I loved the feeling of running hard, of competing, of seeing what I was capable of. I remember, as a young athlete, how meaningful it was to me when people showed up to my games.",
+    "date": "2026-01-21",
+    "url": "https://lucyschodell.substack.com/p/making-it-easier-to-show-up-for-womens",
+    "source": "Substack",
+    "category": "Women's sports",
+    "photo": "young-athlete-team",
+    "featured": true
+  },
+  {
+    "id": "ultra-gobi-400km",
+    "title": "Ultra Gobi 400km",
+    "subtitle": "247 miles. 94 hours, 27 minutes, and 58 seconds.",
+    "excerpt": "Running ultras has never really been about running or the numbers. It's about people, community, connection, and adventure. It's about experiencing the beauty of the world. It's about doing something really hard and feeling gratitude for all that the body is capable of.",
+    "date": "2025-11-14",
+    "url": "https://lucyschodell.substack.com/p/ultra-gobi-400km",
+    "source": "Substack",
+    "category": "Endurance",
+    "photo": "gobi-into-the-sun",
+    "featured": true
+  },
+  {
+    "id": "the-speed-project-solo-round-3",
+    "title": "The Speed Project Solo: Round 3",
+    "subtitle": "Team Solo",
+    "excerpt": "A third solo run from Los Angeles to Las Vegas, this time as part of Team Solo.",
+    "date": "2025-04-25",
+    "url": "https://lucyschodell.substack.com/p/the-speed-project-solo-round-3",
+    "source": "Substack",
+    "category": "Running",
+    "photo": "tsp-crew-night",
+    "featured": false
+  },
+  {
+    "id": "reflections-ahead-of-tsp-solo-lalv",
+    "title": "Reflections ahead of TSP Solo - LALV",
+    "subtitle": "A year ago, on my way to finishing 300-miles from LA to Vegas...",
+    "excerpt": "A year ago, on my way to finishing 300 miles from LA to Vegas. Looking back before heading to the start line again.",
+    "date": "2025-03-19",
+    "url": "https://lucyschodell.substack.com/p/reflections-ahead-of-tsp-solo-lalv",
+    "source": "Substack",
+    "category": "Personal",
+    "photo": "tsp-rainbow-highway",
+    "featured": false
+  },
+  {
+    "id": "moab-240-part-1",
+    "title": "MOAB 240",
+    "subtitle": "~247 miles with 30,000+ ft of climbing. 93:25. 4th female, 23rd overall.",
+    "excerpt": "It was a tough decision because my wife was pregnant with our first child, and the race was when the baby would be about 2.5 months old. The final 2.5 months of training would be as a new parent, with a newborn.",
+    "date": "2024-10-27",
+    "url": "https://lucyschodell.substack.com/p/moab-240-part-1",
+    "source": "Substack",
+    "category": "Endurance",
+    "photo": "moab-bib-and-baby",
+    "featured": true
+  },
+  {
+    "id": "the-speed-project-solo-and-relay",
+    "title": "The Speed Project Solo AND Relay: LA to LV 2024",
+    "subtitle": "Solo: 286 miles, 82:41, 4th place overall, 1st female. Relay: 286 miles, 47:30.",
+    "excerpt": "Running the solo, and then coming back for the relay on the same stretch of desert.",
+    "date": "2024-03-30",
+    "url": "https://lucyschodell.substack.com/p/the-speed-project-solo-and-relay",
+    "source": "Substack",
+    "category": "Running",
+    "photo": "tsp-crew-arch",
+    "featured": false
+  },
+  {
+    "id": "the-speed-project-solo-atacama-2024",
+    "title": "The Speed Project Solo: Atacama 2023",
+    "subtitle": "Iquique to San Pedro de Atacama: 315 miles, 105:45, 3rd place overall, 1st female.",
+    "excerpt": "Flying to Chile to run across the Atacama desert was going to be expensive and missing Thanksgiving with my family was tough to do.",
+    "date": "2023-12-01",
+    "url": "https://lucyschodell.substack.com/p/the-speed-project-solo-atacama-2024",
+    "source": "Substack",
+    "category": "Endurance",
+    "photo": "hero-atacama-highway",
+    "featured": true
+  },
+  {
+    "id": "the-speed-project-solo-la-to-lv-2023",
+    "title": "The Speed Project Solo: LA to LV 2023",
+    "subtitle": "Los Angeles to Las Vegas: 293 miles, 84:45, 1st overall.",
+    "excerpt": "I've spent the last week feeling proud, loved by my community, sad it's over, and uncertain about what's next. Just like during a 300 mile race, the feelings come in waves. The unsurprising headline: running is a team sport, and I've got the best team.",
+    "date": "2023-03-30",
+    "url": "https://lucyschodell.substack.com/p/the-speed-project-solo-la-to-lv-2023",
+    "source": "Substack",
+    "category": "Running",
+    "photo": "tsp-santa-monica-arch",
+    "featured": true
+  }
+]

@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Figure from "../components/Figure.astro";
+import RaceList from "../components/RaceList.astro";
+import MediaFilter from "../components/MediaFilter.astro";
+import SectionHead from "../components/SectionHead.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { getMedia, getRaces } from "../lib/content";
+import { collectionPageSchema } from "../lib/schema";
+import { site } from "../lib/site";
+
+const races = await getRaces();
+const media = await getMedia();
+
+// Everything on this page is running-adjacent except the Watch Women's Sports
+// coverage, which lives on the Projects page instead.
+const runningMedia = media.filter(
+  (m) => m.category !== "Building" && m.category !== "Women's sports",
+);
+
+const filters = [
+  { value: "all", label: "Everything" },
+  { value: "writing", label: "Race reports" },
+  { value: "press", label: "Press" },
+  { value: "podcast", label: "Podcasts" },
+  { value: "video", label: "Videos" },
+];
+
+const schema = [
+  collectionPageSchema(
+    "/running/",
+    "Running: ultramarathons and desert crossings",
+    "Ultramarathons and desert crossings, with the writing, films and podcasts around them.",
+    runningMedia.map((m) => ({ name: m.title, url: m.url })),
+  ),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Races run by Lucy Schodell",
+    itemListElement: races.map((race, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "SportsEvent",
+        name: `${race.data.name} ${race.data.year}`,
+        startDate: race.data.date,
+        location: { "@type": "Place", name: race.data.location },
+        url: race.data.reportUrl,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Running: ultramarathons and desert crossings"
+  description="Ultramarathons and desert crossings: The Speed Project Solo, Ultra Gobi 400K, the Moab 240 and the Atacama, with the race reports, press and podcasts around them."
+  schema={schema}
+  ogPhoto="gobi-mountains"
+  crumbs={[{ name: "Running", path: "/running/" }]}
+>
+  <PageHeader
+    label="Running"
+    title="Long distances, mostly in deserts"
+    lede={`I ran my first marathon in 2008 and my first ultra in 2017. Since then, my motto has been "the longer, the better" and I've taken on several big desert races of 200+ miles. Check out writing, films, and conversations below about my experiences.`}
+  />
+
+  <section class="wrap hero-photo">
+    <Figure
+      photo="gobi-mountains"
+      ratio="21/9"
+      sizes="100vw"
+      widths={[800, 1200, 1800, 2000]}
+      loading="eager"
+      fetchpriority="high"
+      caption="Ultra Gobi 400K. 247 miles, self-navigated and self-supported, across the Gobi desert."
+    />
+  </section>
+
+  <section class="wrap band">
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num numeric">1st</span>
+        <span class="stat-label">The Speed Project Solo 2023, outright, and a course record</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num numeric">315</span>
+        <span class="stat-label">Miles across the Atacama, my longest single race</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num numeric">94:27:58</span>
+        <span class="stat-label">Ultra Gobi 400K, 6th overall and 2nd female</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num numeric">$10k+</span>
+        <span class="stat-label">Raised for camp scholarships at Ultra Gobi</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap band">
+    <SectionHead label="The record" title="Races" as="h2" />
+    <RaceList races={races} />
+  </section>
+
+  <section class="band photo-band">
+    <div class="wrap duo">
+      <Figure
+        photo="tsp-rainbow-highway"
+        ratio="3/2"
+        sizes="(max-width: 48rem) 100vw, 50vw"
+        caption="Somewhere between Los Angeles and Las Vegas."
+      />
+      <Figure
+        photo="gobi-desert-bones"
+        ratio="3/2"
+        sizes="(max-width: 48rem) 100vw, 50vw"
+        caption="The Gobi, mid-crossing."
+      />
+    </div>
+  </section>
+
+  <section class="wrap band">
+    <SectionHead
+      label="Media"
+      title="Written, recorded, and filmed"
+      as="h2"
+    />
+    <MediaFilter
+      items={runningMedia}
+      filters={filters}
+      match="kind"
+      emptyMessage="Nothing in this category yet."
+    />
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-photo {
+    margin-top: var(--space-m);
+  }
+
+  .band {
+    padding-block: var(--space-2xl);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: var(--space-m);
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-block: var(--space-l);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1;
+    font-weight: 600;
+    color: var(--clay);
+  }
+
+  .stat-label {
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    line-height: 1.4;
+    max-width: 22ch;
+  }
+
+
+  .photo-band {
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--rule);
+  }
+
+  .duo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-m);
+  }
+
+  @media (max-width: 48rem) {
+    .duo {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
