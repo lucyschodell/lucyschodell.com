@@ -1,4 +1,5 @@
 import { site } from "./site";
+import { getPhoto, type PhotoKey } from "./photos";
 
 /**
  * Structured data.
@@ -123,5 +124,76 @@ export function collectionPageSchema(
         url: it.url,
       })),
     },
+  };
+}
+
+/**
+ * Videos.
+ *
+ * The content files record only what a person needs to see a video listed —
+ * title, day, description, link. Google needs three more things on a
+ * VideoObject before it will accept one: a thumbnail, an upload date carrying
+ * a time and a timezone, and a way to actually play the video. Those are
+ * derived here rather than typed into src/data/videos.json, so adding a video
+ * stays a four-field job.
+ */
+export type VideoInput = {
+  title: string;
+  description: string;
+  /** ISO date, no time — see uploadDateTime(). */
+  date: string;
+  url: string;
+  youtubeId?: string;
+  photo?: string;
+};
+
+/**
+ * Google rejects a bare "2025-10-23": uploadDate has to be a full ISO 8601
+ * timestamp with a timezone. Only the day is known, so noon UTC stands in for
+ * the time — it lands on the same calendar day in every timezone, which a
+ * midnight would not.
+ */
+function uploadDateTime(date: string): string {
+  return `${date}T12:00:00+00:00`;
+}
+
+/**
+ * Thumbnails come from the photo registry, which already holds 1280x720 stills
+ * for every video. YouTube's own thumbnail is the fallback for an entry added
+ * without one: hqdefault is the size YouTube always serves, unlike maxresdefault.
+ */
+function videoThumbnail(video: VideoInput): string | undefined {
+  const photo = getPhoto(video.photo as PhotoKey | undefined);
+  if (photo) return new URL(photo.src.src, site.origin).href;
+  if (video.youtubeId) return `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
+  return undefined;
+}
+
+export function videoObjectSchema(video: VideoInput) {
+  return {
+    "@type": "VideoObject",
+    name: video.title,
+    description: video.description,
+    thumbnailUrl: videoThumbnail(video),
+    uploadDate: uploadDateTime(video.date),
+    url: video.url,
+    ...(video.youtubeId
+      ? { embedUrl: `https://www.youtube.com/embed/${video.youtubeId}` }
+      : {}),
+    about: { "@id": PERSON_ID },
+  };
+}
+
+/** The Videos page listing, newest first. */
+export function videoListSchema(name: string, videos: VideoInput[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    itemListElement: videos.map((video, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: videoObjectSchema(video),
+    })),
   };
 }
