@@ -2,6 +2,7 @@
 
 | Date | Summary |
 |------|---------|
+| 2026-11-03 | Added the Sports Business Journal Women's Sports newsletter mention to press |
 | 2026-10-14 | Added the Everyday Athlete "Why We Choose Hard Things" podcast as the homepage lead |
 | 2026-09-10 | Added The GIST's Quick Hits mention of Watch Women's Sports IRL |
 | 2026-09-06 | Added the NOLA.com feature on Watch Women's Sports IRL to press |
